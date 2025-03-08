@@ -1,0 +1,66 @@
+{% extends "order/base.html" %}
+
+{% load static %}
+
+{% block title %}Отображение всех заказов{% endblock %}
+
+{% block content %}
+
+
+<center><h3>Поиск заказов</h3>
+    <form action="" method="get">
+  {{ filterset.form.as_p }}
+
+  <input type="submit" value="Поиск" />
+  <a href="{% url 'order:order_list' %}">Отмена</a>
+
+  </form></ul>
+
+
+<ul><h1>Список заказов</h1></ul>
+{% if order_list %}
+{% for order in order_list %}
+<div class="card">
+    <div class="card-header">
+        <p>Стол №{{ order.table_number }}</p>
+        <p>ID заказа: {{ order.id }}</p>
+        <p>Статус: {{ order.get_status_display }}</p>
+        <p>Список блюд: {{ order.menu_order.all|join:", " }}</p>
+        <p>Сумма заказа: {{ order.total_price }}</p>
+
+        <a href="{% url 'order:delete_order' order.id %}">Удаление заказа</a>
+        <a href="{% url 'order:update_order' order.id %}">Изменить статус заказа</a>
+        <a href="{% url 'order:update_menu' order.id%}">Внести изменения в заказе</a>
+    </div>
+</div>
+    <br>
+{% endfor %}
+{% else %}
+<p>Заказов нет</p>
+{% endif %}
+
+
+<!--#пагинация-->
+{% if page_obj.has_previous %}
+{% if page_obj.has_previous %}
+<a href="?page={{page_obj.previous_page_number}}">Предыдущая</a>
+
+
+...
+<a href="?page={{page_obj.previous_page_number}}">{{page_obj.previous_page_number}}</a>
+{%endif%}
+
+{% endif %}
+
+{{page_obj.number}}
+
+
+
+{% if page_obj.has_next %}
+<a href="?page={{page_obj.next_page_number}}">Следующая</a>
+{% endif %}</center>
+
+
+
+{% endblock %}
+

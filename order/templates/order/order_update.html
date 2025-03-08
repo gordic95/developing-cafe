@@ -1,0 +1,13 @@
+{% extends "order/base.html" %}
+
+{% block title %}Изменение статуса заказа{% endblock %}
+
+{% block content %}
+<center><h1>Изменение статуса заказа</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Изменить</button>
+    <a href="{% url 'order:order_list' %}">Отмена</a>
+    </form></center>
+{% endblock %}
