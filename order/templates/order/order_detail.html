@@ -1,0 +1,36 @@
+{% extends 'order/base.html' %}
+
+{% block title %}Информация о заказе{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Информация о заказе {{ order.id }}</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <dl class="row">
+                <dt class="col-sm-4">ID заказа:</dt>
+                <dd class="col-sm-8">{{ order.id }}</dd>
+
+                <dt class="col-sm-4">Номер стола:</dt>
+                <dd class="col-sm-8">{{ order.table_number }}</dd>
+
+                <dt class="col-sm-4">Меню:</dt>
+                <dd class="col-sm-8">{{ order.menu_order.all|join:", " }}</dd>
+
+                <dt class="col-sm-4">Статус:</dt>
+                <dd class="col-sm-8">{{ order.get_status_display }}</dd>
+
+                <dt class="col-sm-4">Общая сумма заказа:</dt>
+                <dd class="col-sm-8">{{ order.total_price }}</dd>
+            </dl>
+
+            <div class="d-flex justify-content-evenly mt-3">
+                <a href="{% url 'order:delete_order' order.id %}" class="btn btn-danger">Удалить заказ</a>
+                <a href="{% url 'order:update_order' order.id %}" class="btn btn-secondary">Изменить статус заказа</a>
+                <a href="{% url 'order:update_menu' order.id %}" class="btn btn-secondary">Изменить меню</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

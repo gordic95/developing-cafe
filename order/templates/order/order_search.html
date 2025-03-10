@@ -1,0 +1,39 @@
+{% extends "order/base.html" %}
+
+{% block title %}Поиск заказов{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Поиск заказов</h1>
+
+    <form method="get" class="mx-auto w-50">
+        <div class="mb-3">
+            <label for="order_id" class="form-label">Идентификатор заказа:</label>
+            <input type="number" name="order_id" id="order_id" class="form-control" required>
+        </div>
+        <div class="d-grid gap-2 mx-auto">
+            <button type="submit" class="btn btn-secondary">Поиск</button>
+        </div>
+    </form>
+
+    <hr>
+
+    {% for order in orders %}
+        {% if order %}
+        <div class="row mb-3">
+            <div class="col-md-6 offset-md-3">
+                <p><strong>ID заказа:</strong> {{ order.id }}</p>
+                <p><strong>Статус:</strong> {{ order.get_status_display }}</p>
+                <p><strong>Стол №:</strong> {{ order.table_number }}</p>
+                <p><strong>Блюда:</strong> {{ order.menu_order.all|join:", " }}</p>
+                <p><strong>Общая сумма заказа:</strong> {{ order.total_price }}</p>
+                <a href="{% url 'order:order_detail' order.id %}" class="btn btn-secondary">Перейти к заказу</a>
+            </div>
+        </div>
+        <hr>
+        {% else %}
+          <p>Заказ не найден.</p>
+  {% endif %}
+    {% endfor %}
+</div>
+{% endblock content %}

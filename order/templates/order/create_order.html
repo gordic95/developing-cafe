@@ -1,0 +1,27 @@
+{% extends 'order/base.html' %}
+
+{% block title %}Добавление заказа{% endblock %}
+
+{% block content %}
+<center><div class="container mt-5">
+    <h1 class="text-center">Добавление заказа</h1>
+    <form action="" method="post" enctype="multipart/form-data" class="mx-auto w-50">
+        {% csrf_token %}
+        <fieldset>
+            {% for field in form %}
+                <div class="mb-3">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <small class="text-danger">{{ field.errors }}</small>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </fieldset>
+        <div class="d-grid gap-2 mx-auto">
+            <input type="submit" value="Добавить" class="btn btn-secondary"/>
+            <a href="{% url 'order:order_list' %}" class="btn btn-secondary">Отмена</a>
+        </div>
+    </form>
+</div></center>
+{% endblock %}

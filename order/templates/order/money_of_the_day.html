@@ -1,0 +1,10 @@
+{% extends 'order/base.html' %}
+
+{% block title %}Общий доход{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Количество заказанных позиций: {{ count }} </h1>
+    <h1 class="text-center">Общий доход составляет: {{ money }} рублей.</h1>
+</div>
+{% endblock %}
