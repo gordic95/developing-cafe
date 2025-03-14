@@ -1,0 +1,33 @@
+{% extends "order/base.html" %}
+
+{% block title %} Ваши заказы {% endblock %}
+
+{% block content %}
+<center><h1>Ваши заказы</h1>
+    <table class="table">
+        <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Дата создания</th>
+        <th scope="col">Сумма заказа</th>
+        <th scope="col">Статус</th>
+        <th scope="col">Операции</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+        <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ order.date_time }}</td>
+        <td>{{ order.total_price }}</td>
+        <td>{{ order.get_status_display }}</td>
+        <td>
+        <a href="{% url 'order:update_order' order.id %}">Изменить статус</a>
+        <a href="{% url 'order:delete_order' order.id %}">Удалить заказ</a>
+        </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+    </center>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'order/base.html' %}
+
+{% block title %}Регистрация завершена{% endblock %}
+
+{% block content %}
+<center><h1>Регистрация завершена</h1>
+<p>Вы успешно зарегистрировались.</p>
+<p><a href="{% url 'accounts:login' %}">Войти в личный кабинет</a></p></center>
+
+{% endblock %}
